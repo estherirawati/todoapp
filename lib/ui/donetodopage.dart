@@ -10,6 +10,11 @@ class DoneToDoPage extends StatefulWidget {
 class _DoneToDoPageState extends State<DoneToDoPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+        appBar: AppBar(
+            title: const Text("Done To Do App"),
+        ),
+        body:  ListView()
+    );
   }
 }
