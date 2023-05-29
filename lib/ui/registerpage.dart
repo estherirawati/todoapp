@@ -1,16 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todoapp/ui/todolistpage.dart';
 
-class LoginPage extends StatefulWidget {
-  static const routeName='/login_page';
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  static const routeName='/register_page';
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _auth = FirebaseAuth.instance;
   bool _isLoading=false;
   var _emailController = TextEditingController();
@@ -65,26 +64,32 @@ class _LoginPageState extends State<LoginPage> {
                     final navigator = Navigator.of(context);
                     final email = _emailController.text;
                     final password = _passwordController.text;
-                    await _auth.signInWithEmailAndPassword(email: email, password: password);
-                    navigator.pushReplacementNamed(ToDoListPage.routeName);
+                    await _auth.createUserWithEmailAndPassword(
+                        email: email, password: password);
+                    navigator.pop();
                   } on Exception catch (e) {
                     final snackbar = SnackBar(content: Text(e.toString()));
                     ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                  } finally{
+                  } finally {
                     setState(() {
                       _isLoading=false;
                     });
                   }
-
                 },
-                child: Text('Login')
+                child: Text('Register')
             ),
-            TextButton(onPressed: (){
-
-            }, child: Text('Register Here')),
+            TextButton(onPressed: ()=>Navigator.pop(context),
+                child: Text('Already have account? Login')),
           ],
         )
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

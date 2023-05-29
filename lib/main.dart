@@ -1,13 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todoapp/firebase_options.dart';
 import 'package:todoapp/provider/donetodoprovider.dart';
+import 'package:todoapp/ui/registerpage.dart';
 import 'package:todoapp/ui/todolistpage.dart';
 
 import 'ui/donetodopage.dart';
 import 'ui/loginpage.dart';
 import 'ui/settingpage.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -43,7 +50,7 @@ class _MyAppState extends State<MyApp> {
           ),
           home: Scaffold(
             body: Center(
-              child: const LoginPage()),
+              child: const RegisterPage()),
             bottomNavigationBar: Builder(
               builder: (context){
                 return BottomNavigationBar(
