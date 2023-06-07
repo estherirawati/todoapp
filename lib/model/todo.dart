@@ -3,7 +3,7 @@ class Todo
   late int? id;
   late String task;
   late String dateCreated;
-  Todo(this.id,this.task,this.dateCreated);
+  Todo({this.id,required this.task,required this.dateCreated});
   Map<String,dynamic> toMap() {
     return {
       "id":id,

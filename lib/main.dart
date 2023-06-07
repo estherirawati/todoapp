@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoapp/firebase_options.dart';
+import 'package:todoapp/provider/dbprovider.dart';
 import 'package:todoapp/provider/donetodoprovider.dart';
 import 'package:todoapp/ui/registerpage.dart';
 import 'package:todoapp/ui/todolistpage.dart';
@@ -31,8 +32,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context)=>DoneTodoProvider(),
+    return MultiProvider(providers: [
+        ChangeNotifierProvider(create: (context)=>DoneTodoProvider()),
+        ChangeNotifierProvider(create: (context)=>DbProvider()),
+    ],
       child:
         MaterialApp(
           title: 'Flutter Demo',
@@ -82,7 +85,7 @@ class _MyAppState extends State<MyApp> {
             )
           )
         ),
-    );
+      );
   }
 }
 

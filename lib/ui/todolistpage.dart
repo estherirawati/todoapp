@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoapp/provider/donetodoprovider.dart';
+import 'package:todoapp/ui/todo_add_update_page.dart';
 import 'package:todoapp/widgets/flagiconwidget.dart';
 
 import '../widgets/todotilewidget.dart';
@@ -71,7 +72,15 @@ class _ToDoListPageState extends State<ToDoListPage> {
 
             ),
           ],
-        )
+        ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context)=> const ToDoAddUpdatePage()));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
